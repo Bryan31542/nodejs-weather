@@ -2,7 +2,7 @@ const { readInput, inquirerMenu, pause } = require("./helpers/inquirer");
 const Searchs = require("./models/searchs");
 
 const main = async () => {
-  const search = new Searchs();
+  const searchs = new Searchs();
   let opt = "";
 
   do {
@@ -12,7 +12,7 @@ const main = async () => {
       case 1:
         // Mostrar mensaje
         const place = await readInput("Ingrese una Ciudad:");
-        console.log(place);
+        await searchs.city(place);
 
         // Buscar lugares
 
