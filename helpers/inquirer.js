@@ -79,7 +79,7 @@ const showPlaces = async (places = []) => {
     {
       type: "list",
       name: "id",
-      message: "Seleccione lugar:".green,
+      message: "Seleccione una ubicación:",
       choices,
     },
   ];
