@@ -9,12 +9,9 @@ class Searchs {
 
   get paramsMapbox() {
     return {
-      params: {
-        access_token:
-          "pk.eyJ1IjoiYnJ5YW4zMTU0MiIsImEiOiJjbDA0aTQ0am4wMHd4M2RtZHZxajRiaWU1In0.5YTT8qZODwGkk-XMvAcxag",
-        limit: 5,
-        language: "es",
-      },
+      access_token: process.env.MAPBOX_KEY,
+      limit: 5,
+      language: "es",
     };
   }
 
@@ -27,8 +24,12 @@ class Searchs {
       });
 
       const resp = await instance.get();
-
-      console.log(resp.data);
+      return resp.data.features.map((place) => ({
+        id: place.id,
+        name: place.place_name,
+        lng: place.center[0],
+        lat: place.center[1],
+      }));
     } catch (error) {
       return [];
     }
