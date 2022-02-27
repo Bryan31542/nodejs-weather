@@ -25,13 +25,23 @@ const main = async () => {
 
         // Seleccionar lugar
         const idSelected = await showPlaces(places);
+
+        if (idSelected === "0") continue;
+
+        // Guardando info
         const placeSelected = places.find((p) => p.id === idSelected);
+        searchs.saveHistory(placeSelected.name);
 
         // Clima
         const weather = await searchs.weatherPlace(
           placeSelected.lat,
           placeSelected.lng
         );
+
+        const { description } = weather;
+
+        const descriptionCapitalized =
+          description.charAt(0).toUpperCase() + description.slice(1);
 
         // Mostrar resultados
         console.clear();
@@ -42,10 +52,14 @@ const main = async () => {
         console.log("Temperatura:", weather.temp, "°C".yellow);
         console.log("Mínima:", weather.min, "°C".yellow);
         console.log("Máxima:", weather.max, "°C".yellow);
-        console.log("Descripción:", `${weather.description}`.yellow);
+        console.log("Se siente:", `${descriptionCapitalized}`.yellow);
 
         break;
       case 2:
+        searchs.historyCapitalized.forEach((place, i) => {
+          const index = `${i + 1}`.green;
+          console.log(`${index} ${".".green} ${place}`);
+        });
         break;
     }
 
